@@ -10,14 +10,14 @@ The project was developed progressively, starting with baseline model training, 
 
 ## Key Features
 
-* Trained and compared multiple classification models, including Logistic Regression and Random Forest
-* Evaluated model performance using accuracy, precision, recall, and F1-score
-* Tracked experiments and metrics with MLflow
-* Registered the best-performing model in the MLflow model registry
-* Saved the final trained model and feature schema for deployment
-* Built a Flask-based web application for customer churn prediction
-* Added a user-friendly homepage form for entering customer data
-* Containerized the application using Docker for reproducible deployment
+- Trained and compared multiple classification models, including Logistic Regression and Random Forest
+- Evaluated model performance using accuracy, precision, recall, and F1-score
+- Tracked experiments and metrics with MLflow
+- Registered the best-performing model in the MLflow model registry
+- Saved the final trained model and feature schema for deployment
+- Built a Flask-based web application for customer churn prediction
+- Added a user-friendly homepage form for entering customer data
+- Containerized the application using Docker for reproducible deployment
 
 ## Project Structure
 
@@ -26,14 +26,14 @@ bank-churn-mlops/
 │
 ├── data/                       # Raw dataset
 ├── models/                     # Saved trained model and feature columns
-│   ├── final\_model.joblib
-│   └── training\_columns.joblib
+│   ├── final_model.joblib
+│   └── training_columns.joblib
 │
 ├── notebooks/                  # Development and learning notebooks
-│   ├── 01\_train\_baseline.ipynb
-│   ├── 02\_mlflow\_train.ipynb
-│   ├── 03\_register\_model.ipynb
-│   └── 04\_model\_api.ipynb
+│   ├── 01_train_baseline.ipynb
+│   ├── 02_mlflow_train.ipynb
+│   ├── 03_register_model.ipynb
+│   └── 04_model_api.ipynb
 │
 ├── src/
 │   └── api/
@@ -48,13 +48,13 @@ bank-churn-mlops/
 
 ## Technologies Used
 
-* Python
-* Pandas
-* Scikit-learn
-* MLflow
-* Flask
-* Docker
-* Joblib
+- Python
+- Pandas
+- Scikit-learn
+- MLflow
+- Flask
+- Docker
+- Joblib
 
 ## Machine Learning Workflow
 
@@ -66,26 +66,23 @@ After comparing performance, the Random Forest model was selected as the final m
 
 The Random Forest model outperformed Logistic Regression and was chosen as the final deployment model.
 
-|Model|Accuracy|Precision|Recall|F1 Score|
-|-|-|-|-|-|
-|Logistic Regression|\~0.80|Lower|Lower|Lower|
-|Random Forest|\~0.86|Higher|Better|Better|
+| Model                | Accuracy | Precision | Recall | F1 Score |
+|---------------------|----------|----------|--------|----------|
+| Logistic Regression | ~0.80    | Lower    | Lower  | Lower    |
+| Random Forest       | ~0.86    | Higher   | Better | Better   |
 
 ## Application Features
 
 The deployed application includes two ways to interact with the model:
 
-### 1\. Web Interface
-
+### 1. Web Interface
 Users can open the homepage in a browser, enter customer information such as credit score, geography, age, balance, and salary, and receive a churn prediction directly on the page.
 
-### 2\. API Endpoint
-
+### 2. API Endpoint
 The model can also be accessed programmatically through an API endpoint.
 
 **Endpoint**
-
-```text
+```
 POST /predict-form
 ```
 
@@ -101,7 +98,7 @@ python src/api/app.py
 
 Then open the following URL in your browser:
 
-```text
+```
 http://127.0.0.1:5001
 ```
 
@@ -121,7 +118,7 @@ docker run -p 5001:5001 bank-churn-api
 
 Then open:
 
-```text
+```
 http://127.0.0.1:5001
 ```
 
@@ -129,14 +126,14 @@ http://127.0.0.1:5001
 
 This project is not only a machine learning model but also a demonstration of practical MLOps concepts. It shows how a model can move from experimentation to a usable deployed system. It covers several important technical areas, including:
 
-* Machine learning classification
-* Data preprocessing and feature encoding
-* Model evaluation and selection
-* Experiment tracking
-* Model registry concepts
-* Web API development
-* Model serving
-* Docker-based deployment
+- Machine learning classification
+- Data preprocessing and feature encoding
+- Model evaluation and selection
+- Experiment tracking
+- Model registry concepts
+- Web API development
+- Model serving
+- Docker-based deployment
 
 These topics are especially relevant for machine learning engineering, data science, and applied AI roles.
 
@@ -144,17 +141,16 @@ These topics are especially relevant for machine learning engineering, data scie
 
 Possible future enhancements include:
 
-* Adding churn probability output instead of only class labels
-* Improving the front-end design using templates and static files
-* Adding input validation and error handling
-* Refactoring training into a separate script
-* Building an end-to-end scikit-learn pipeline
-* Adding CI/CD for automated testing and deployment
-* Deploying the containerized application to a cloud service such as Azure, AWS, or Render
+- Adding churn probability output instead of only class labels
+- Improving the front-end design using templates and static files
+- Adding input validation and error handling
+- Refactoring training into a separate script
+- Building an end-to-end scikit-learn pipeline
+- Adding CI/CD for automated testing and deployment
+- Deploying the containerized application to a cloud service such as Azure, AWS, or Render
 
 ## Author
 
-**Zahra**
-
+**Zahra S. Torabi**
 PhD in Computer Science with experience in machine learning, optimization, and applied AI systems.
-
+Contact: z.torabi.university@gmail.com 
