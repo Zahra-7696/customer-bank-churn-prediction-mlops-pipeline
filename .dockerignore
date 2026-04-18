@@ -1,0 +1,13 @@
+.venv
+__pycache__
+*.pyc
+mlruns
+mlartifacts
+notebooks
+.git
+.ipynb_checkpoints
+.env
+*.log
+.vscode
+.DS_Store
+mlflow.db
