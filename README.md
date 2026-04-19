@@ -1,12 +1,12 @@
 # Bank Churn Prediction - MLOps Project
 
-This project implements an end-to-end Machine Learning Operations (MLOps) workflow for predicting customer churn in a banking dataset. It demonstrates the full lifecycle of a machine learning system, from baseline model development and experiment tracking to deployment through a Flask web application, Docker containerization, and Jenkins-based CI/CD automation.
+This project implements an end-to-end Machine Learning Operations (MLOps) workflow for predicting customer churn in a banking dataset. It demonstrates the full lifecycle of a machine learning system, from baseline model development and experiment tracking to deployment through a Flask web application, Docker containerization, Jenkins-based CI/CD automation, and GitHub Actions-based cloud CI validation.
 
 ## Overview
 
 Customer churn prediction is an important business problem in the banking industry because losing customers directly affects revenue and long-term growth. This project builds a machine learning system that predicts whether a customer is likely to leave the bank based on demographic and financial features.
+The project was developed progressively, starting with baseline model training, followed by experiment tracking with MLflow, model registration, API development, Docker-based deployment, Jenkins pipeline automation, and GitHub Actions CI validation. The final system provides both a browser-based prediction interface and a containerized deployment workflow that can be triggered through CI/CD.
 
-The project was developed progressively, starting with baseline model training, followed by experiment tracking with MLflow, model registration, API development, Docker-based deployment, and Jenkins pipeline automation. The final system provides both a browser-based prediction interface and a containerized deployment workflow that can be triggered through CI/CD.
 
 ## Key Features
 
@@ -19,6 +19,7 @@ The project was developed progressively, starting with baseline model training, 
 - Added a cleaner homepage using Flask templates and static CSS
 - Containerized the application using Docker for reproducible deployment
 - Added Jenkins CI/CD automation for training, testing, image building, and container deployment
+- Added GitHub Actions CI workflow for automatic validation on push and pull request
 - Added a test stage using `pytest` for basic project validation
 
 ## Project Structure
@@ -50,6 +51,9 @@ customer-bank-churn-prediction-mlops-pipeline/
 │
 ├── tests/
 │   └── test_files.py           # Basic validation tests
+├── .github/
+│   └── workflows/
+│       └── ci.yml
 │
 ├── Dockerfile                  # Docker image definition
 ├── Jenkinsfile                 # Jenkins CI/CD pipeline
@@ -61,15 +65,7 @@ customer-bank-churn-prediction-mlops-pipeline/
 
 ## Technologies Used
 
-- Python
-- Pandas
-- Scikit-learn
-- MLflow
-- Flask
-- Docker
-- Jenkins
-- Pytest
-- Joblib
+Python, Pandas, Scikit-learn, MLflow, Flask, Docker, Jenkins, GitHub Actions, Pytest, Joblib
 
 ## Machine Learning Workflow
 
@@ -105,47 +101,18 @@ For browser-based interaction, the homepage form sends user input to the Flask a
 
 ## Running the Project Locally
 
-Run the training script if model artifacts need to be regenerated:
-
-```bash
 python src/training/train_model.py
-```
-
-Then run the Flask app:
-
-```bash
 python src/api/app.py
-```
-
-Open the app in your browser:
-
-```text
 http://127.0.0.1:5001
-```
 
 ## Running with Docker
 
-Build the Docker image:
-
-```bash
 docker build -t bank-churn-api .
-```
-
-Run the Docker container:
-
-```bash
 docker run -p 5001:5001 bank-churn-api
-```
-
-Then open:
-
-```text
-http://127.0.0.1:5001
-```
 
 ## Jenkins CI/CD Pipeline
 
-This project includes a Jenkins pipeline that automates the core ML deployment workflow.
+This project includes a Jenkins pipeline that automates the core ML deployment workflow. The Jenkins pipeline reduces manual deployment steps and helps ensure that code updates remain testable and deployable. It also demonstrates how a machine learning application can be integrated into a more realistic CI/CD workflow rather than being run only by hand.
 
 ### Jenkins pipeline stages
 - Checkout source code from GitHub
@@ -156,8 +123,19 @@ This project includes a Jenkins pipeline that automates the core ML deployment w
 - Build the Docker image
 - Deploy the updated container
 
-### Why Jenkins was added
-The Jenkins pipeline reduces manual deployment steps and helps ensure that code updates remain testable and deployable. It also demonstrates how a machine learning application can be integrated into a more realistic CI/CD workflow rather than being run only by hand.
+### GitHub Actions CI Workflow
+Stages:
+- Checkout repository
+- Setup Python
+- Create virtual environment
+- Install dependencies
+- Train model
+- Run tests
+- Build Docker image
+Purpose:
+GitHub Actions validates the project automatically on every push and pull request in a clean cloud environment.
+
+
 
 ## Why This Project Matters
 
@@ -172,6 +150,7 @@ This project is not only a machine learning model but also a demonstration of pr
 - Model serving
 - Docker-based deployment
 - Jenkins-based CI/CD automation
+- GitHub Actions CI Workflow
 - Basic automated testing
 
 These topics are especially relevant for machine learning engineering, data science, MLOps, and applied AI roles.
@@ -181,14 +160,10 @@ These topics are especially relevant for machine learning engineering, data scie
 
 Possible future enhancements include:
 
-- Adding churn probability output instead of only class labels
-- Improving result styling with different success and risk states
-- Adding stronger API and application tests
-- Refactoring preprocessing and model logic into a single scikit-learn pipeline
-- Adding GitHub Actions CI/CD in addition to Jenkins
-- Adding automatic triggers from GitHub to Jenkins
-- Improving deployment safety with health checks or rollback logic
-- Deploying the containerized application to a cloud service such as Azure, AWS, or Render
+- Add API tests
+- Add CI badges
+- Add cloud deployment
+
 
 ## Author
 
