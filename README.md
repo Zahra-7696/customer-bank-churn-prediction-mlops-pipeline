@@ -1,12 +1,12 @@
 # Bank Churn Prediction - MLOps Project
 
-This project implements an end-to-end Machine Learning Operations (MLOps) pipeline for predicting customer churn in a banking dataset. It demonstrates the full lifecycle of a machine learning system, from model development and experiment tracking to deployment through a Flask web application and Docker containerization.
+This project implements an end-to-end Machine Learning Operations (MLOps) workflow for predicting customer churn in a banking dataset. It demonstrates the full lifecycle of a machine learning system, from baseline model development and experiment tracking to deployment through a Flask web application, Docker containerization, and Jenkins-based CI/CD automation.
 
 ## Overview
 
 Customer churn prediction is an important business problem in the banking industry because losing customers directly affects revenue and long-term growth. This project builds a machine learning system that predicts whether a customer is likely to leave the bank based on demographic and financial features.
 
-The project was developed progressively, starting with baseline model training, followed by experiment tracking with MLflow, model registration, API creation, and finally Docker-based deployment. The final system provides both a prediction endpoint and a simple web interface for user interaction.
+The project was developed progressively, starting with baseline model training, followed by experiment tracking with MLflow, model registration, API development, Docker-based deployment, and Jenkins pipeline automation. The final system provides both a browser-based prediction interface and a containerized deployment workflow that can be triggered through CI/CD.
 
 ## Key Features
 
@@ -16,40 +16,43 @@ The project was developed progressively, starting with baseline model training, 
 - Registered the best-performing model in the MLflow model registry
 - Saved the final trained model and feature schema for deployment
 - Built a Flask-based web application for customer churn prediction
-- Added a user-friendly homepage form for entering customer data
+- Added a cleaner homepage using Flask templates and static CSS
 - Containerized the application using Docker for reproducible deployment
+- Added Jenkins CI/CD automation for training, testing, image building, and container deployment
+- Added a test stage using `pytest` for basic project validation
 
 ## Project Structure
 
 ```text
-bank-churn-mlops/
+customer-bank-churn-prediction-mlops-pipeline/
 │
 ├── data/                       # Raw dataset
 ├── models/                     # Saved trained model and feature columns
 │   ├── final_model.joblib
 │   └── training_columns.joblib
 │
-├── notebooks/                  # Development and learning notebooks
+├── notebooks/                  # Development notebooks
 │   ├── 01_train_baseline.ipynb
 │   ├── 02_mlflow_train.ipynb
 │   └── 03_register_model.ipynb
-│   
 │
 ├── templates/
-│   └── index.html         # Flask application
-├──static/
-│     └── style.css
+│   └── index.html              # Homepage template
+│
+├── static/
+│   └── style.css               # Homepage styling
 │
 ├── src/
 │   ├── api/
-│   │   └── app.py
+│   │   └── app.py              # Flask application
 │   └── training/
-│       └── train_model.py  
-├── tests 
-│     ├── test_files.py         
+│       └── train_model.py      # Separate training script
+│
+├── tests/
+│   └── test_files.py           # Basic validation tests
 │
 ├── Dockerfile                  # Docker image definition
-├──Jenkinsfile
+├── Jenkinsfile                 # Jenkins CI/CD pipeline
 ├── .dockerignore
 ├── .gitignore
 ├── requirements.txt
@@ -64,13 +67,15 @@ bank-churn-mlops/
 - MLflow
 - Flask
 - Docker
+- Jenkins
+- Pytest
 - Joblib
 
 ## Machine Learning Workflow
 
 The machine learning pipeline begins with loading and preprocessing the banking churn dataset. Categorical variables are transformed using one-hot encoding so that they can be used by machine learning algorithms. Multiple models were trained and evaluated, including Logistic Regression as a baseline model and Random Forest as a stronger ensemble model.
 
-After comparing performance, the Random Forest model was selected as the final model because it achieved better results across the main classification metrics. Experiments were tracked in MLflow, and the selected model was registered before being exported as a deployment-ready artifact.
+After comparing performance, the Random Forest model was selected as the final deployment model because it achieved better results across the main classification metrics. Experiments were tracked in MLflow, and the selected model was registered before being exported as a deployment-ready artifact.
 
 ## Model Performance Summary
 
@@ -92,7 +97,7 @@ Users can open the homepage in a browser, enter customer information such as cre
 The model can also be accessed programmatically through an API endpoint.
 
 **Endpoint**
-```
+```text
 POST /predict-form
 ```
 
@@ -100,15 +105,21 @@ For browser-based interaction, the homepage form sends user input to the Flask a
 
 ## Running the Project Locally
 
-To run the application locally:
+Run the training script if model artifacts need to be regenerated:
+
+```bash
+python src/training/train_model.py
+```
+
+Then run the Flask app:
 
 ```bash
 python src/api/app.py
 ```
 
-Then open the following URL in your browser:
+Open the app in your browser:
 
-```
+```text
 http://127.0.0.1:5001
 ```
 
@@ -128,9 +139,25 @@ docker run -p 5001:5001 bank-churn-api
 
 Then open:
 
-```
+```text
 http://127.0.0.1:5001
 ```
+
+## Jenkins CI/CD Pipeline
+
+This project includes a Jenkins pipeline that automates the core ML deployment workflow.
+
+### Jenkins pipeline stages
+- Checkout source code from GitHub
+- Set up a project-specific Python virtual environment
+- Install dependencies from `requirements.txt`
+- Train the model using `src/training/train_model.py`
+- Run tests with `pytest`
+- Build the Docker image
+- Deploy the updated container
+
+### Why Jenkins was added
+The Jenkins pipeline reduces manual deployment steps and helps ensure that code updates remain testable and deployable. It also demonstrates how a machine learning application can be integrated into a more realistic CI/CD workflow rather than being run only by hand.
 
 ## Why This Project Matters
 
@@ -144,23 +171,30 @@ This project is not only a machine learning model but also a demonstration of pr
 - Web API development
 - Model serving
 - Docker-based deployment
+- Jenkins-based CI/CD automation
+- Basic automated testing
 
-These topics are especially relevant for machine learning engineering, data science, and applied AI roles.
+These topics are especially relevant for machine learning engineering, data science, MLOps, and applied AI roles.
+
+## Current Limitations
+
+This project currently uses a Jenkins-based local CI/CD workflow and manual browser verification after deployment. GitHub Actions integration and more advanced deployment strategies can be added as the next development stage.
 
 ## Future Improvements
 
 Possible future enhancements include:
 
 - Adding churn probability output instead of only class labels
-- Improving the front-end design using templates and static files
-- Adding input validation and error handling
-- Refactoring training into a separate script
-- Building an end-to-end scikit-learn pipeline
-- Adding CI/CD for automated testing and deployment
+- Improving result styling with different success and risk states
+- Adding stronger API and application tests
+- Refactoring preprocessing and model logic into a single scikit-learn pipeline
+- Adding GitHub Actions CI/CD in addition to Jenkins
+- Adding automatic triggers from GitHub to Jenkins
+- Improving deployment safety with health checks or rollback logic
 - Deploying the containerized application to a cloud service such as Azure, AWS, or Render
 
 ## Author
 
-**Zahra S. Torabi**
-PhD in Computer Science with experience in machine learning, optimization, and applied AI systems.
-Contact: z.torabi.university@gmail.com 
+**Zahra S. Torabi**  
+PhD in Computer Science with experience in machine learning, optimization, and applied AI systems.  
+Contact: z.torabi.university@gmail.com
