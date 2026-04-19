@@ -1,0 +1,43 @@
+name: GitHub Actions CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test-and-build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Create virtual environment
+        run: |
+          python -m venv .venv
+          .\.venv\Scripts\python.exe -m pip install --upgrade pip
+          .\.venv\Scripts\pip.exe install -r requirements.txt
+        shell: powershell
+
+      - name: Train model
+        run: |
+          .\.venv\Scripts\python.exe src/training/train_model.py
+        shell: powershell
+
+      - name: Run tests
+        run: |
+          $env:PYTEST_DISABLE_PLUGIN_AUTOLOAD=1
+          .\.venv\Scripts\python.exe -m pytest tests/test_files.py
+        shell: powershell
+
+      - name: Build Docker image
+        run: |
+          docker build -t bank-churn-api .
+        shell: powershell
