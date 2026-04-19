@@ -35,9 +35,16 @@ bank-churn-mlops/
 │   ├── 03_register_model.ipynb
 │   └── 04_model_api.ipynb
 │
+├── templates/
+│   └── index.html         # Flask application
+├──static/
+│     └── style.css
+│
 ├── src/
-│   └── api/
-│       └── app.py              # Flask application
+│   ├── api/
+│   │   └── app.py
+│   └── training/
+│       └── train_model.py             
 │
 ├── Dockerfile                  # Docker image definition
 ├── .dockerignore
