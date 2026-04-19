@@ -2,12 +2,6 @@ pipeline {
     agent any
 
     stages {
-        stage('Checkout') {
-            steps {
-                git branch: 'main', url: 'https://github.com/Zahra-7696/customer-bank-churn-prediction-mlops-pipeline.git'
-            }
-        }
-
         stage('Set Up Virtual Environment') {
             steps {
                 powershell '''
