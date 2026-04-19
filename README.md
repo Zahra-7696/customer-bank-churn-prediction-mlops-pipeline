@@ -32,8 +32,8 @@ bank-churn-mlops/
 ├── notebooks/                  # Development and learning notebooks
 │   ├── 01_train_baseline.ipynb
 │   ├── 02_mlflow_train.ipynb
-│   ├── 03_register_model.ipynb
-│   └── 04_model_api.ipynb
+│   └── 03_register_model.ipynb
+│   
 │
 ├── templates/
 │   └── index.html         # Flask application
@@ -48,8 +48,8 @@ bank-churn-mlops/
 │
 ├── Dockerfile                  # Docker image definition
 ├── .dockerignore
+├── .gitignore
 ├── requirements.txt
-├── mlflow.db
 └── README.md
 ```
 
