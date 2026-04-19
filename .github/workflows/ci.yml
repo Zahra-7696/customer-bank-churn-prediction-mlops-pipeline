@@ -8,7 +8,7 @@ on:
 
 jobs:
   test-and-build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
@@ -22,22 +22,18 @@ jobs:
       - name: Create virtual environment
         run: |
           python -m venv .venv
-          .\.venv\Scripts\python.exe -m pip install --upgrade pip
-          .\.venv\Scripts\pip.exe install -r requirements.txt
-        shell: powershell
+          .venv/bin/python -m pip install --upgrade pip
+          .venv/bin/pip install -r requirements.txt
 
       - name: Train model
         run: |
-          .\.venv\Scripts\python.exe src/training/train_model.py
-        shell: powershell
+          .venv/bin/python src/training/train_model.py
 
       - name: Run tests
         run: |
-          $env:PYTEST_DISABLE_PLUGIN_AUTOLOAD=1
-          .\.venv\Scripts\python.exe -m pytest tests/test_files.py
-        shell: powershell
+          export PYTEST_DISABLE_PLUGIN_AUTOLOAD=1
+          .venv/bin/python -m pytest tests/test_files.py
 
       - name: Build Docker image
         run: |
           docker build -t bank-churn-api .
-        shell: powershell
