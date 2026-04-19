@@ -44,9 +44,12 @@ bank-churn-mlops/
 │   ├── api/
 │   │   └── app.py
 │   └── training/
-│       └── train_model.py             
+│       └── train_model.py  
+├── tests 
+│     ├── test_files.py         
 │
 ├── Dockerfile                  # Docker image definition
+├──Jenkinsfile
 ├── .dockerignore
 ├── .gitignore
 ├── requirements.txt
