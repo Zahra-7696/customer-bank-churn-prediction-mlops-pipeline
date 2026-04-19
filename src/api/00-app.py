@@ -1,4 +1,7 @@
 #To run .\.venv\Scripts\python.exe src/api/app.py
+#to build docker image:docker build -t bank-churn-api .
+#remove old container:docker rm -f bank-churn-container
+#remove old image: docker rmi bank-churn-api
 #docker images
 #for first time after build:docker run -d --name bank-churn-container -p 5001:5001 bank-churn-api
 #or docker run -d --name bank-churn-container -p 5001:5001 bank-churn-api:latest
