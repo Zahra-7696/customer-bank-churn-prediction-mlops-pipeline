@@ -176,9 +176,6 @@ This project is not only a machine learning model but also a demonstration of pr
 
 These topics are especially relevant for machine learning engineering, data science, MLOps, and applied AI roles.
 
-## Current Limitations
-
-This project currently uses a Jenkins-based local CI/CD workflow and manual browser verification after deployment. GitHub Actions integration and more advanced deployment strategies can be added as the next development stage.
 
 ## Future Improvements
 
