@@ -8,12 +8,12 @@ pipeline {
             }
         }
 
-        stage('Install Dependencies') {
+        stage('Set Up Virtual Environment') {
             steps {
                 powershell '''
-                python -m pip install --upgrade pip
-                pip install -r requirements.txt
-                pip install pytest
+                python -m venv .venv
+                .\\.venv\\Scripts\\python.exe -m pip install --upgrade pip
+                .\\.venv\\Scripts\\pip.exe install -r requirements.txt
                 '''
             }
         }
@@ -21,7 +21,7 @@ pipeline {
         stage('Train Model') {
             steps {
                 powershell '''
-                python src/training/train_model.py
+                .\\.venv\\Scripts\\python.exe src/training/train_model.py
                 '''
             }
         }
@@ -29,7 +29,8 @@ pipeline {
         stage('Run Tests') {
             steps {
                 powershell '''
-                pytest
+                $env:PYTEST_DISABLE_PLUGIN_AUTOLOAD=1
+                .\\.venv\\Scripts\\python.exe -m pytest tests/test_files.py
                 '''
             }
         }

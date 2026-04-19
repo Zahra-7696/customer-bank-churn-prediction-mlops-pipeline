@@ -3,7 +3,7 @@
 #remove old container:docker rm -f bank-churn-container
 #remove old image: docker rmi bank-churn-api
 #docker images
-#for first time after build:docker run -d --name bank-churn-container -p 5001:5001 bank-churn-api
+#for first time after build: docker run -d --name bank-churn-container -p 5001:5001 bank-churn-api
 #or docker run -d --name bank-churn-container -p 5001:5001 bank-churn-api:latest
 #If you want to avoid name conflicts entirely: docker run -d --rm -p 5001:5001 bank-churn-api
 #or run it: docker start bank-churn-container
