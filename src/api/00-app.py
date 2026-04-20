@@ -10,8 +10,27 @@
 #docker ps
 #to stop it: docker stop bank-churn-container
 #open:http://127.0.0.1:5001
+###################
+#To update image:
+#docker build -t bank-churn-api .
+#docker rm -f bank-churn-container
+#docker run -d --name bank-churn-container -p 5001:5001 bank-churn-api
+#####################
+#In monitoring folder use:Restart Prometheus and Grafana properly
+#docker compose down
+#docker rm -f grafana prometheus
+#docker compose up -d
+# http://localhost:9090
+###############################
+#Run these commands to run kubernty:
+
+#kubectl delete deployment bank-churn-app
+#kubectl delete service bank-churn-service
+#kubectl apply -f k8s-app.yaml
+#kubectl get pods
 
 
+####################################
 # import mlflow
 # import mlflow.pyfunc
 # import pandas as pd

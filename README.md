@@ -1,12 +1,12 @@
 # Bank Churn Prediction - MLOps Project
 
-This project implements an end-to-end Machine Learning Operations (MLOps) workflow for predicting customer churn in a banking dataset. It demonstrates the full lifecycle of a machine learning system, from baseline model development and experiment tracking to deployment through a Flask web application, Docker containerization, Jenkins-based CI/CD automation, and GitHub Actions-based cloud CI validation.
+This project implements an end-to-end Machine Learning Operations (MLOps) workflow for predicting customer churn in a banking dataset. It demonstrates the full lifecycle of a machine learning system, from baseline model development and experiment tracking to deployment through a Flask web application, Docker containerization, Jenkins-based CI/CD automation, GitHub Actions-based cloud CI validation, Prometheus and Grafana monitoring, and Kubernetes-based container orchestration.
 
 ## Overview
 
 Customer churn prediction is an important business problem in the banking industry because losing customers directly affects revenue and long-term growth. This project builds a machine learning system that predicts whether a customer is likely to leave the bank based on demographic and financial features.
-The project was developed progressively, starting with baseline model training, followed by experiment tracking with MLflow, model registration, API development, Docker-based deployment, Jenkins pipeline automation, and GitHub Actions CI validation. The final system provides both a browser-based prediction interface and a containerized deployment workflow that can be triggered through CI/CD.
 
+The project was developed progressively, starting with baseline model training, followed by experiment tracking with MLflow, model registration, API development, Docker-based deployment, Jenkins pipeline automation, GitHub Actions CI validation, monitoring with Prometheus and Grafana, and Kubernetes deployment. The final system provides both a browser-based prediction interface and a containerized deployment workflow that can be triggered through CI/CD, while also supporting runtime monitoring and container orchestration.
 
 ## Key Features
 
@@ -21,6 +21,8 @@ The project was developed progressively, starting with baseline model training, 
 - Added Jenkins CI/CD automation for training, testing, image building, and container deployment
 - Added GitHub Actions CI workflow for automatic validation on push and pull request
 - Added a test stage using `pytest` for basic project validation
+- Added monitoring with Prometheus and Grafana for request count, error count, latency, and prediction tracking
+- Added Kubernetes deployment and service configuration for running the application in a container orchestration environment
 
 ## Project Structure
 
@@ -40,21 +42,27 @@ customer-bank-churn-prediction-mlops-pipeline/
 ├── templates/
 │   └── index.html              # Homepage template
 │
+├── monitoring/                 # Monitoring with Prometheus and Grafana
+│   ├── docker-compose.yml
+│   └── prometheus.yml
+│
 ├── static/
 │   └── style.css               # Homepage styling
 │
 ├── src/
 │   ├── api/
-│   │   └── app.py              # Flask application
+│   │   └── app.py              # Flask application with Prometheus metrics
 │   └── training/
 │       └── train_model.py      # Separate training script
 │
 ├── tests/
 │   └── test_files.py           # Basic validation tests
+│
 ├── .github/
 │   └── workflows/
-│       └── ci.yml
+│       └── ci.yml              # GitHub Actions CI workflow
 │
+├── k8s-app.yaml                # Kubernetes deployment and service definition
 ├── Dockerfile                  # Docker image definition
 ├── Jenkinsfile                 # Jenkins CI/CD pipeline
 ├── .dockerignore
@@ -65,7 +73,7 @@ customer-bank-churn-prediction-mlops-pipeline/
 
 ## Technologies Used
 
-Python, Pandas, Scikit-learn, MLflow, Flask, Docker, Jenkins, GitHub Actions, Pytest, Joblib
+Python, Pandas, Scikit-learn, MLflow, Flask, Docker, Jenkins, GitHub Actions, Prometheus, Grafana, Kubernetes, Pytest, Joblib
 
 ## Machine Learning Workflow
 
@@ -101,14 +109,54 @@ For browser-based interaction, the homepage form sends user input to the Flask a
 
 ## Running the Project Locally
 
+```bash
 python src/training/train_model.py
 python src/api/app.py
+```
+
+Open:
+
+```text
 http://127.0.0.1:5001
+```
 
 ## Running with Docker
 
+```bash
 docker build -t bank-churn-api .
 docker run -p 5001:5001 bank-churn-api
+```
+
+## Monitoring with Prometheus and Grafana
+
+This project includes a local monitoring stack using Prometheus and Grafana. Prometheus scrapes metrics exposed by the Flask application, while Grafana visualizes them through dashboards.
+
+### Monitored metrics include:
+- Total requests
+- Request rate
+- Error count
+- Request latency
+- Total predictions
+
+### Example monitored queries:
+- `app_requests_total`
+- `rate(app_requests_total[1m])`
+- `app_errors_total`
+- `rate(app_request_latency_seconds_sum[1m]) / rate(app_request_latency_seconds_count[1m])`
+- `model_predictions_total`
+
+Prometheus and Grafana are started through the monitoring Docker Compose setup, and the dashboard can be used to observe application behavior over time.
+
+## Kubernetes Deployment
+
+This project also includes a Kubernetes deployment file for running the application in Docker Desktop Kubernetes.
+
+### Kubernetes resources included:
+- Deployment for the bank churn application
+- NodePort service for external access
+
+### Kubernetes usage
+After enabling Kubernetes in Docker Desktop and applying `k8s-app.yaml`, the application can be deployed and accessed through a NodePort service. This demonstrates the next step beyond standalone Docker deployment by running the application under container orchestration.
 
 ## Jenkins CI/CD Pipeline
 
@@ -123,19 +171,19 @@ This project includes a Jenkins pipeline that automates the core ML deployment w
 - Build the Docker image
 - Deploy the updated container
 
-### GitHub Actions CI Workflow
-Stages:
+## GitHub Actions CI Workflow
+
+### Stages
 - Checkout repository
-- Setup Python
+- Set up Python
 - Create virtual environment
 - Install dependencies
 - Train model
 - Run tests
 - Build Docker image
-Purpose:
+
+### Purpose
 GitHub Actions validates the project automatically on every push and pull request in a clean cloud environment.
-
-
 
 ## Why This Project Matters
 
@@ -150,20 +198,23 @@ This project is not only a machine learning model but also a demonstration of pr
 - Model serving
 - Docker-based deployment
 - Jenkins-based CI/CD automation
-- GitHub Actions CI Workflow
+- GitHub Actions CI workflow
+- Monitoring with Prometheus and Grafana
+- Kubernetes deployment and service exposure
 - Basic automated testing
 
 These topics are especially relevant for machine learning engineering, data science, MLOps, and applied AI roles.
-
 
 ## Future Improvements
 
 Possible future enhancements include:
 
-- Add API tests
+- Add more complete API tests
 - Add CI badges
+- Move Prometheus and Grafana fully into Kubernetes
+- Add Kubernetes autoscaling
+- Add alert rules for latency and errors
 - Add cloud deployment
-
 
 ## Author
 
