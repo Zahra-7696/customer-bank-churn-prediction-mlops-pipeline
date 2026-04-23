@@ -28,7 +28,7 @@
 #kubectl delete service bank-churn-service
 #kubectl apply -f k8s-app.yaml
 #kubectl get pods
-
+#http://localhost:30007/
 
 ####################################
 # import mlflow
