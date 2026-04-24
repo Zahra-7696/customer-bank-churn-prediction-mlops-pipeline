@@ -67,6 +67,13 @@ customer-bank-churn-prediction-mlops-pipeline/
 ├── Jenkinsfile                 # Jenkins CI/CD pipeline
 ├── .dockerignore
 ├── screenshots
+│       ├── app/
+│       │    └── prediction-ui.png
+│       ├── monitoring/
+│       │     ├── prometheus.png
+│       │     └── grafana-dashboard.png
+│       ├── ci-cd/
+│             └── jenkins-pipeline.png
 ├── .gitignore
 ├── requirements.txt
 └── README.md
