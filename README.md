@@ -66,6 +66,7 @@ customer-bank-churn-prediction-mlops-pipeline/
 ├── Dockerfile                  # Docker image definition
 ├── Jenkinsfile                 # Jenkins CI/CD pipeline
 ├── .dockerignore
+├── screenshots
 ├── .gitignore
 ├── requirements.txt
 └── README.md
